@@ -1,0 +1,22 @@
+Executive Summary
+==================
+
+Assignment Overview
+-------------------
+The purpose of this project is to extend the Key-Value Store (KV-Store) system implemented in Project #3 by
+replacing the Two-Phase Commit (2PC) protocol with the Paxos consensus algorithm to achieve fault-tolerant, replicated state machine consistency.
+The system consists of five Paxos servers, each composed of three Paxos roles: Proposer, Acceptor, and Learner.
+These servers communicate via Java RMI and perform replicated PUT, GET, and DELETE operations concurrently.
+The goal is to ensure consistent agreement on updates even when some nodes are temporarily unavailable due to failure.
+
+Technical Impression
+--------------------
+Implementing the Paxos protocol in a multi-threaded, distributed environment was both an educational and technically challenging experience.
+The most interesting aspect was understanding and translating the Lamport Paxos paper into functional Java code,
+especially integrating the roles of proposer, acceptor, and learner while maintaining the quorum-based agreement logic.
+I designed each Paxos role as a `Runnable` class and simulated failure using randomized timers, where each node periodically fails and restarts.
+
+The client was built to prepopulate the store and support interactive input, randomly targeting one of the five servers for each operation.
+In doing so, the project mimics a real-world distributed setup with dynamic availability and consensus under failure.
+Challenges included synchronizing shared data access, managing retries on failed proposals, and tuning failure intervals to balance realism and operability.
+This project provided deep insight into fault-tolerant distributed design and highlighted how Paxos ensures consistency in an unreliable networked system.
